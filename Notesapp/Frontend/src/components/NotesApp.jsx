@@ -233,7 +233,7 @@ useEffect(() => {
       <div className="app">
         {/* Sidebar */}
         <aside className="sidebar">
-          <div>
+          <div className="header-bar">
             {/* Logo */}
             {/* <div className="logo">
               <div className="logo-box">N</div>
