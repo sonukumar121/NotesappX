@@ -36,7 +36,9 @@ export const searchnote = async (req, res) => {
           },
         },
       ];
-    return res.json({ message: "note searching successfully", note: query});
+           const notes = await Note.find(query);
+     return res.json(notes);
+    
    
       
     }
