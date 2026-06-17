@@ -376,8 +376,7 @@ body {
     min-width:unset;
     padding:4vw;
     border-right:none;
-    height: 100vh;
-  overflow-y: auto;
+   
   }
 
   .main{
