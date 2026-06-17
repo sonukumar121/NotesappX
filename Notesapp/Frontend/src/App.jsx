@@ -13,7 +13,7 @@ useEffect(() => {
   const checklogin = async () => {
     try {
       const response = await fetch(
-        "https://notesappX2.onrender.com/api/users/islogin",
+        "https://notesappx2.onrender.com/api/users/islogin",
         {
           method: "GET",
           credentials: "include",
