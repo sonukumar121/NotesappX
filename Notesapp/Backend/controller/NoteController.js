@@ -37,6 +37,7 @@ export const searchnote = async (req, res) => {
         },
       ];
            const notes = await Note.find(query);
+         console.log(notes);
      return res.json(notes);
     
    
