@@ -20,7 +20,7 @@ connectDB().then(() => {
 
 // ---------------- MIDDLEWARE ----------------
 app.use(cors({
-  origin: "https://NotesappX.onrender.com",
+  origin: "https://notesappx2.onrender.com",
   credentials: true
 }));
 
