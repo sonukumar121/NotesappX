@@ -109,18 +109,4 @@ export const updatenote=async(req,res)=>{
 
 
 
-export const searchnote=async(req,res)=>{
-    try
-    {
-        const {search} = req.body;
-        console.log("backend",search);
-        const datas = await Note.find({title:{$regex:search,$options:"i"}});
-        if (!datas) return res.status(404).json({message: 'no data find'});
-        res.json({note: datas});
-    }
 
-    catch(err)
-    {
-        console.log(err);
-    }
-}
