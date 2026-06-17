@@ -353,7 +353,8 @@ body {
 
 
 .header-bar{
-position:static;
+position: sticky;
+  top: 0;
 }
 
 
