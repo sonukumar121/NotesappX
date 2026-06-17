@@ -154,28 +154,36 @@ if (result.isConfirmed) {
     
   };
 
-  const searchnote = async (e) => {
-    const value = e.target.value;
+   const searchnote = async () => {
+    // const value = e.target.value;
 
-    setsearch(value);
+    // setsearch(value);
 
     const response = await fetch(
-      "https://notesappx2.onrender.com/api/note/",
+      `https://NotesappX2.onrender.com/api/note/search?search=${search}`,
       {
-        method: "POST",
+        method: "GET",
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
           
         },
-        body: JSON.stringify({ search: value }),
+        // body: JSON.stringify({ search: search }),
       },
     );
 
     const data = await response.json();
 
-    setList(data.note);
+    setList(data.query);
+    snote("");
   };
+
+  
+useEffect(() => {
+    searchnote();
+  }, [search]);
+
+
 
   useEffect(() => {
     getform();
