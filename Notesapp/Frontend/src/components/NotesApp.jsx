@@ -40,7 +40,7 @@ function NotesApp({ setIslogin }) {
 
   const getform = async () => {
     const response = await fetch(
-     `https://NotesappX2.onrender.com/api/note?date=${date}`,
+     `https://notesappx2.onrender.com/api/note?date=${date}`,
       {
         method: "GET",
         credentials: "include",
@@ -66,7 +66,7 @@ function NotesApp({ setIslogin }) {
       );
 
       const response = await fetch(
-        `https://NotesappX2.onrender.com/api/note/${id}`,
+        `https://notesappx2.onrender.com/api/note/${id}`,
         {
           method: "PUT",
           credentials: "include",
@@ -84,7 +84,7 @@ function NotesApp({ setIslogin }) {
       setEdit(false);
     } else {
       const response = await fetch(
-        "https://NotesappX2.onrender.com/api/note",
+        "https://notesappx2.onrender.com/api/note",
         {
           method: "POST",
           credentials: "include",
@@ -135,7 +135,7 @@ if (result.isConfirmed) {
     setList(list.filter((item, i) => i !== index));
     
     const response = await fetch(
-      `https://NotesappX2.onrender.com/api/note/${id}`,
+      `https://notesappx2.onrender.com/api/note/${id}`,
       {
         method: "DELETE",
         credentials: "include",
@@ -160,7 +160,7 @@ if (result.isConfirmed) {
     setsearch(value);
 
     const response = await fetch(
-      "https://NotesappX2.onrender.com/api/note/",
+      "https://notesappx2.onrender.com/api/note/",
       {
         method: "POST",
         credentials: "include",
@@ -183,7 +183,7 @@ if (result.isConfirmed) {
 
   const logouthandler = async () => {
     const response = await fetch(
-      "https://NotesappX2.onrender.com/api/users/islogout",
+      "https://notesappx2.onrender.com/api/users/islogout",
       {
         method: "GET",
         credentials: "include",
