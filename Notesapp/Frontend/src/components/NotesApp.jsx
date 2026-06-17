@@ -158,7 +158,7 @@ if (result.isConfirmed) {
     // const value = e.target.value;
 
     // setsearch(value);
-     if(search=="") return;
+     
     const response = await fetch(
       `https://notesappx2.onrender.com/api/note/search?search=${search}`,
       {
