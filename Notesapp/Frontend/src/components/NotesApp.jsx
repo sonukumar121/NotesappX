@@ -160,7 +160,7 @@ if (result.isConfirmed) {
     // setsearch(value);
 
     const response = await fetch(
-      `https://NotesappX2.onrender.com/api/note/search?search=${search}`,
+      `https://notesappx2.onrender.com/api/note/search?search=${search}`,
       {
         method: "GET",
         credentials: "include",
