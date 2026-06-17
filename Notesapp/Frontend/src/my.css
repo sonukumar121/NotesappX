@@ -352,76 +352,31 @@ body {
 }
 
 
-
-
-
-
 /* -------------------------------------------------------------- */
 /* Signup part */
 
 @media (max-width:768px){
 
-  .app{
-    flex-direction: column;
-  }
-
-  .sidebar{
-    width:100%;
-    min-width:unset;
-    padding:4vw;
-    border-right:none;
-  }
-
   .main{
-    padding:4vw;
+    padding: 4vw;
   }
 
-  .topbar{
-    flex-direction:column;
-    gap:3vw;
-    align-items:stretch;
-  }
-
-  .topbar input{
-    width:100%;
-    min-width:unset;
+  .form-container{
+    width: 92vw;
   }
 
   .note-card{
-    width:100%;
-    min-width:unset;
+    width: 92vw;
   }
 
-  .form-container,
-  .auth-card{
-    width:92vw;
-    min-width:unset;
+  .topbar input{
+    width: 92vw;
   }
 
   .logo h1{
-    font-size:6vw;
+    font-size: 5vw;
   }
+
 }
+
 /* --------------------------------------------- */
-/* App.css */
-
-/* pwd show or hide css */
-.pwd-box {
-  position: relative;
-  width: 100%;
-}
-
-.input-field {
-  width: 100%;
-  padding-right: 40px; /* icon ke liye space */
-}
-
-.eye {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-}

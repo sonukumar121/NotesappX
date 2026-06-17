@@ -1,3 +1,4 @@
+
 import Note from "../model/Note.js";
 import jwt from "jsonwebtoken";
 
@@ -14,17 +15,36 @@ export const addnote=async(req,res)=>{
 }
 
 
-export const getnote=async(req,res)=>{
-    try{
-      
-        const notes=await Note.find({userid:req.user.id});
-        res.json({notes});
+
+export const getnote = async (req, res) => {
+  try {
+    const { date } = req.query;
+
+    if (!date) {
+      return res.status(400).json({ message: "Date is required" });
     }
-    catch(err)
-    {
-        console.log(err);
-    }
-}
+
+    const start = new Date(date);
+    start.setHours(0, 0, 0, 0);
+
+    const end = new Date(date);
+    end.setHours(23, 59, 59, 999);
+
+    const notes = await Note.find({
+      userid: req.user.id,
+      createdAt: {
+        $gte: start,
+        $lte: end,
+      },
+    });
+
+    res.json({ notes });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
 
 
 export const deletenote=async(req,res)=>{
@@ -71,9 +91,3 @@ export const searchnote=async(req,res)=>{
         console.log(err);
     }
 }
-
-
-
-
-
-

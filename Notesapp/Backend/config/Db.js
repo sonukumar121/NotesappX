@@ -1,20 +1,13 @@
 import mongoose from "mongoose";
-
-
-const connectDB = async () => 
-{
-    try{
-        await mongoose.connect("mongodb://127.0.0.1:27017/notesapp");
-        console.log("MongoDB Connected");
-    }
-    catch(err)
-    {
+import dotenv from "dotenv";
+dotenv.config();
+const connectDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO_URL);
+    console.log("MongoDB Connected");
+  } catch (error) {
     console.log("MongoDB Connection failed");
-    }
-  
-
-  
+    console.log(error);
+  }
 };
-
 export default connectDB;
-   

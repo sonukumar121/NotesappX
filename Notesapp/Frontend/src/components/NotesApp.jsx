@@ -1,24 +1,32 @@
 import { useState } from "react";
 import "../App.css";
+// import { FaEdit, FaTrash, MdDateRange, FaCalendarAlt } from "react-icons/fa";
 // import Signup from "./Signup";
 // import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+// import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-function NotesApp() {
-
-   const navigate = useNavigate();
+function NotesApp({ setIslogin }) {
+  const navigate = useNavigate();
   // const navigate = useNavigate();\
 
   // const [dark, setDark] = useState(false);
-  
+
   const [edit, setEdit] = useState(false);
   const [editindex, seteditIndex] = useState(null);
   const [showForm, setshowForm] = useState(false);
   const [list, setList] = useState([]);
-  const [ide,setide]=useState("");
-  const [search,setsearch]=useState("");
+  const [ide, setide] = useState("");
+  const [search, setsearch] = useState("");
+  const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
+  const [drop,setdrop]=useState(false);
+  const [dark,setdark]=useState(true);
+  const [del,setdel]=useState(false);
+  // const [conf,setconf]=useState(false);
 
-  console.log(typeof(ide));
+  console.log(typeof ide);
 
   const [form, setForm] = useState({
     title: "",
@@ -30,89 +38,62 @@ function NotesApp() {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-
-
-
-
   const getform = async () => {
-    const response = await fetch("http://localhost:5000/api/note", {
-      method: "GET",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-        
-      },
-      body: JSON.stringify(),
-    });
-    const data = await response.json();
-    console.log(data);
-    setList(data.notes);
-
-
-  };
-
-
-
-
-
-
-
-
-
-
-
-
-  const addNote = async (e,id) => {
-    e.preventDefault();
-
-    setshowForm(false);
-
-    if (edit) 
+    const response = await fetch(
+     `https://NotesappX2.onrender.com/api/note?date=${date}`,
       {
-        //first update then send new updated data to backend
-        setList((prev) =>
-        prev.map((item, i) => (i === editindex ? { ...item, ...form } : item))
-        
-      
-      );
-   
-      
-
-      const response = await fetch(`http://localhost:5000/api/note/${id}`, {
-      method: "PUT",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-        
-      },
-      body: JSON.stringify({ide}),
-    });
-
-    const data = await response.json();
-
-    console.log("edit data=" ,data);
-    await getform();
-    setEdit(false);
-    
-      
-     
-    } 
-    
-    
-    
-    
-    
-    else {
-      const response = await fetch("http://localhost:5000/api/note", {
-        method: "POST",
+        method: "GET",
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
-         
-          
         },
-        body: JSON.stringify(form),
-      });
+        // body: JSON.stringify({ date: date }),
+      },
+    );
+    const data = await response.json();
+    console.log(data);
+    setList(data.notes);
+  };
+
+  const addNote = async (e, id) => {
+    e.preventDefault();
+    setshowForm(false);
+     
+    if (edit) {
+      //first update then send new updated data to backend
+      setList((prev) =>
+        prev.map((item, i) => (i === editindex ? { ...item, ...form } : item)),
+      );
+
+      const response = await fetch(
+        `https://NotesappX2.onrender.com/api/note/${id}`,
+        {
+          method: "PUT",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ ide }),
+        },
+      );
+
+      const data = await response.json();
+
+      console.log("edit data=", data);
+      await getform();
+      setEdit(false);
+    } else {
+      const response = await fetch(
+        "https://NotesappX2.onrender.com/api/note",
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(form),
+        },
+      );
 
       const data = await response.json();
 
@@ -127,84 +108,117 @@ function NotesApp() {
     });
   };
 
-  const editNote = (index,id) => {
+  const editNote = (index, id) => {
     setEdit(true);
     setshowForm(true);
     setForm(list[index]);
     seteditIndex(index);
     setide(id);
-
   };
 
-  const deleteNote = async (id, index) => {
-    setList(list.filter((item, i) => i !== index));
 
-    const response = await fetch(`http://localhost:5000/api/note/${id}`, {
-      method: "DELETE",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-       
+
+
+
+
+  
+  const deleteNote = async (id, index) => {
+     // const confirmDelete = window.confirm("Are you sure you want to delete?");
+    // setdel(true);
+   const result = await Swal.fire({
+  title: "Delete Note?",
+  text: "Are you sure?",
+  showCancelButton: true,
+});
+
+if (result.isConfirmed) {  
+    setList(list.filter((item, i) => i !== index));
+    
+    const response = await fetch(
+      `https://NotesappX2.onrender.com/api/note/${id}`,
+      {
+        method: "DELETE",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id }),
       },
-      body: JSON.stringify({ id }),
-    });
+    );
 
     const data = await response.json();
 
     console.log(data);
     await getform();
+}
+    
   };
 
-  
   const searchnote = async (e) => {
-  const value = e.target.value;
+    const value = e.target.value;
 
-  setsearch(value);
+    setsearch(value);
 
-  const response = await fetch("http://localhost:5000/api/note/", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      credentials: "include"
-    },
-    body: JSON.stringify({ search: value }),
-  });
+    const response = await fetch(
+      "https://NotesappX2.onrender.com/api/note/",
+      {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          
+        },
+        body: JSON.stringify({ search: value }),
+      },
+    );
 
-  const data = await response.json();
+    const data = await response.json();
 
-  setList(data.note);
-};
+    setList(data.note);
+  };
 
-    useEffect(() => {
-      getform();
-  }, []);
+  useEffect(() => {
+    getform();
+  }, [date]);
+
+  const logouthandler = async () => {
+    const response = await fetch(
+      "https://NotesappX2.onrender.com/api/users/islogout",
+      {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        // body: JSON.stringify(),
+      },
+    );
+
+    const data = await response.json();
+    console.log(data.message);
+    // if (data.message === "logout successfully") {
+    //   setIslogin(false);
+    //   navigate("/");
+
+    //   // window.location.reload();
+    // }
 
 
+      if (data.message === "logout successfully") {
+     
+    toast.success("Logout Successful 👋");
 
-
-
-  const logouthandler=async()=>{
-      
-  const response = await fetch("http://localhost:5000/api/users/islogout", {
-    method: "GET",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-      
-    },
-    body: JSON.stringify(),
-  });
-    
-  const data = await response.json();
-   console.log(data.message);
-   if(data.message==="logout sucessfully")
-   {
-     navigate("/");
-     window.location.reload();
-   }
-  
+    setTimeout(() => {
+      setIslogin(false);
+      navigate("/");
+    }, 1500);
   }
+  };
 
+
+  const dropbox=()=>{
+    setdrop(!drop);
+  }
 
   return (
     <>
@@ -213,45 +227,98 @@ function NotesApp() {
         <aside className="sidebar">
           <div>
             {/* Logo */}
-            <div className="logo">
+            {/* <div className="logo">
               <div className="logo-box">N</div>
               <h1>Notes App</h1>
-            </div>
+            </div> */}
+
+            <div className="logo">
+  <button onClick={dropbox}
+  className="menu-btn"
+  style={{
+    fontSize: "2rem",
+    background: "transparent",
+    border: "none",
+    color: "white",
+    cursor: "pointer",
+  }}
+>
+  ☰
+</button>
+
+  <div className="logo-box">N</div>
+  <h1>Notes App</h1>
+</div>
 
             {/* Add Button */}
-            <button onClick={() => setshowForm(true)} className="add-btn">
+            {/* <button onClick={() => setshowForm(true)} className="add-btn">
+              + Add Notes
+            </button> */}
+            <button
+              onClick={() => {
+                setshowForm(true);
+                setEdit(false); // ✅ important fix
+                setForm({ title: "", description: "" }); // optional clean form
+              }}
+              className="add-btn"
+            >
               + Add Notes
             </button>
 
             {/* Nav */}
-            <ul className="nav-links">
+            {drop &&
+              <ul className="nav-links">
               <li className="active">🏠 All Notes</li>
               <li>📌 Pinned</li>
               <li>📦 Archive</li>
               <li>🗑 Trash</li>
             </ul>
+            
+            }
+            
           </div>
 
           {/* Bottom */}
-          <div className="bottom-section">
-            <button className="theme-btn">🌙 Dark Theme</button>
 
-            <button onClick={logouthandler} className="logout-btn">Logout</button>
+          {drop && 
+
+            <div className="bottom-section">
+            <button className="theme-btn" onClick={()=>setdark(!dark)}> {dark ? "☀️ Light Theme" : "🌙 Dark Theme"}</button>
+
+            <button onClick={logouthandler} className="logout-btn">
+              Logout
+            </button>
           </div>
+        
+          }
+          
         </aside>
 
         {/* Main */}
-        <main className="main">
+        <main className="main" style={dark ?  {} : {background:"white"} }>
           {/* Topbar */}
           <div className="topbar">
-            <h2>My Notes</h2>
+            <h2 style={dark ? {} : {color:"black"}}>My Notes</h2>
+            {/* dateeeeeeeeeeeeee settting */}
+            <input
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+            />
 
-            <input value={search} onChange={(e)=>{searchnote(e)}} type="text" placeholder="Search notes..." />
+            <input
+              value={search}
+              onChange={(e) => {
+                searchnote(e);
+              }}
+              type="text"
+              placeholder="Search notes..."
+            />
           </div>
 
           {/* Notes */}
 
-          {list.map((item, index) => (
+          {list?.map((item, index) => (
             <div key={index} className="notes-container">
               <div className="note-card">
                 <h3>{item.title}</h3>
@@ -259,11 +326,13 @@ function NotesApp() {
                 <p>{item.description}.</p>
 
                 <div className="card-footer">
-                  <span>Today</span>
+                  <span>
+                    📅 {new Date(item.createdAt).toISOString().split("T")[0]}
+                  </span>
 
                   <div>
-                    <button
-                      onClick={() => editNote(index,item._id)}
+                    {/* <button
+                      onClick={() => editNote(index, item._id)}
                       className="edit-btn"
                     >
                       Edit
@@ -274,6 +343,20 @@ function NotesApp() {
                       className="delete-btn"
                     >
                       Delete
+                    </button> */}
+
+                    <button
+                      onClick={() => editNote(index, item._id)}
+                      className="edit-btn"
+                    >
+                      ✏️ Edit
+                    </button>
+
+                    <button
+                      onClick={() => deleteNote(item._id, index)}
+                      className="delete-btn"
+                    >
+                      🗑️ Delete
                     </button>
                   </div>
                 </div>
@@ -282,29 +365,46 @@ function NotesApp() {
           ))}
         </main>
       </div>
+
+
+
+
+  {/* -----------------------------------------------------------------------------------------------------------------------------------------------------------------------    */}
       {/* FORM MODAL */}
       {showForm && (
         <div className="modal-overlay">
           <div className="form-container">
-            <h2>{edit ? "Edit Note" : "Add Note"}</h2>
+          <h2>
+  {del
+    ? "Are you sure you want to delete this task?"
+    : edit
+    ? "Edit Note"
+    : "Add Note"}
+</h2>
 
             <form onSubmit={addNote} className="note-form">
-              <input
+              { !del &&
+                  <input
                 name="title"
                 type="text"
                 value={form.title}
                 onChange={(e) => subHandler(e)}
                 placeholder="Enter title"
               />
-
+              }
+             
+           { !del &&
               <textarea
                 name="description"
                 value={form.description}
                 onChange={(e) => subHandler(e)}
                 placeholder="Enter description"
               ></textarea>
+           }
 
-              <button type="submit">{edit ? "Update" : "Add"}</button>
+          <button type="submit">
+            {del ? "OK" : edit ? "Update" : "Add"}
+          </button>
 
               <p
                 onClick={() => {
@@ -323,5 +423,6 @@ function NotesApp() {
     </>
   );
 }
+
 
 export default NotesApp;

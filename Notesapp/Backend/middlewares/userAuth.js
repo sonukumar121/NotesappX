@@ -16,6 +16,3 @@ console.log("decoded" ,decoded);
  console.log("req.user",req.user);
   next();
 };
-
-
-

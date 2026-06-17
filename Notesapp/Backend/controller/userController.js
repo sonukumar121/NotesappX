@@ -27,11 +27,12 @@ export const login = async (req, res) => {
       { expiresIn: "1d" }
     );
 
-    res.cookie("token", token, {
-    httpOnly: true,
-    secure: false, 
-    maxAge: 24 * 60 * 60 * 1000,
-  });
+   res.cookie("token", token, {
+  httpOnly: true,
+  secure: true,
+  sameSite: "none",
+  maxAge: 24 * 60 * 60 * 1000,
+});
       console.log("Cookie set:", userd._id);
       return res.status(200).json({ message: "login successfully" });
     }
@@ -45,20 +46,62 @@ export const login = async (req, res) => {
 
 
 
+// export const Signup = async (req, res) => {
+//   const { name, email, password } = req.body;
+//   // console.log(data);
+
+//   try {
+//     const result = validationResult(req);
+
+//     if (!result.isEmpty()) {
+//       return res.status(400).json({ errors: result.array() });
+//     }
+//     const hpassword = await bcrypt.hash(password, 5);
+//     await user.create({ name, email, password: hpassword });
+//     res.json({ message: "signup successfully" });
+//   } catch (err) {
+//     res.json({ message: "something error in signup" });
+//   }
+// };
+
 export const Signup = async (req, res) => {
   const { name, email, password } = req.body;
-  // console.log(data);
 
   try {
     const result = validationResult(req);
 
     if (!result.isEmpty()) {
-      return res.status(400).json({ errors: result.array() });
+      return res.status(400).json({
+        message: result.array()[0].msg
+      });
     }
+
+    // 🔥 1. Check if email already exists
+    const existingUser = await user.findOne({ email });
+
+    if (existingUser) {
+      return res.status(409).json({
+        message: "Email already exists"
+      });
+    }
+
+    // 🔥 2. Hash password
     const hpassword = await bcrypt.hash(password, 10);
-    await user.create({ name, email, password: hpassword });
-    res.json({ message: "signup successfully" });
+
+    // 🔥 3. Create user
+    await user.create({
+      name,
+      email,
+      password: hpassword
+    });
+
+    return res.status(201).json({
+      message: "Signup successful"
+    });
+
   } catch (err) {
-    res.json({ message: "something error in signup" });
+    return res.status(500).json({
+      message: "Something went wrong during signup"
+    });
   }
 };

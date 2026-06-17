@@ -1,53 +1,64 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import NotesApp from "./components/NotesApp";
 import Login from "./components/Login";
 import { useState, useEffect } from "react";
 // import { useNavigate } from "react-router-dom";
 function App() {
-  const [islogin, setIslogin] = useState(null);
+ const [islogin, setIslogin] = useState(false);
+const [loading, setLoading] = useState(true);
   //  const navigate = useNavigate();
-  useEffect(() => {
-    const checklogin = async () => {
-      try {
-        const response = await fetch("http://localhost:5000/api/users/islogin", {
+useEffect(() => {
+  const checklogin = async () => {
+    try {
+      const response = await fetch(
+        "https://NotesappX2.onrender.com/api/users/islogin",
+        {
           method: "GET",
           credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(),
-        });
-
-        const data = await response.json();
-        console.log(data.message);
-
-    if(data.message === "already login") 
-      {
-          console.log("already login");
-          setIslogin(true);
-        } 
-        
-        else 
-       {
-          setIslogin(false);
         }
-      } catch (error) {
-        console.error(error);
+      );
+
+      const data = await response.json();
+
+      if (data.message === "already login") {
+        setIslogin(true);
+      } else {
         setIslogin(false);
       }
-    };
+    } catch (error) {
+      console.error(error);
+      setIslogin(false);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    checklogin();
-  }, []);
+  checklogin();
+}, []);
 
 
   
   return (
+   <>
+     <ToastContainer style={{ zIndex: 99999 }} 
+     
+  position="top-right"
+  autoClose={1000}
+  hideProgressBar
+  newestOnTop
+  closeOnClick
+  draggable={false}
+  theme="dark"
+/>
+      
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={islogin ? <NotesApp/> : <Login/>} />
+      <Route path="/" element={islogin ? <NotesApp setIslogin={setIslogin}/> : <Login setIslogin={setIslogin}/>} />
       </Routes>
     </BrowserRouter>
+    </>
   );
 }
 

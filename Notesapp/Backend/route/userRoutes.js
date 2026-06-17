@@ -15,13 +15,15 @@ Router.get("/islogin", auth , (req,res)=>
 })
 
 
+Router.get("/islogout", (req, res) => {
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+  });
 
-Router.get("/islogout", (req,res)=>
-{
-    res.clearCookie("token");
-    res.json({message:"logout sucessfully"});
-})
+  return res.json({ message: "logout successfully" });
+});
 
 
 export default  Router;
-
