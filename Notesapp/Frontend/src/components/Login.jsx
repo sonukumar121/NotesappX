@@ -18,7 +18,7 @@ function Login({ setIslogin }) {
     e.preventDefault();
 
     const response = await fetch(
-      "https://NotesappX2.onrender.com/api/users/login",
+      "https://notesappx2.onrender.com/api/users/login",
       {
         method: "POST",
         credentials: "include",
@@ -51,7 +51,7 @@ function Login({ setIslogin }) {
     e.preventDefault();
 
     const response = await fetch(
-      "https://NotesappX2.onrender.com/api/users/signup",
+      "https://notesappx2.onrender.com/api/users/signup",
       {
         method: "POST",
         credentials: "include",
