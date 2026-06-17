@@ -276,7 +276,7 @@ useEffect(() => {
             {/* Nav */}
             {drop &&
               <ul className="nav-links">
-              <li className="active">🏠 All Notes</li>
+              {/* <li className="active">🏠 All Notes</li> */}
               {/* <li>📌 Pinned</li>
               <li>📦 Archive</li>
               <li>🗑 Trash</li> */}
