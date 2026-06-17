@@ -4,7 +4,7 @@ import { addnote , getnote , deletenote , updatenote , searchnote} from "../cont
 import {auth} from "../middlewares/userAuth.js"
 
 Router.post("/",auth,addnote);
-Router.post("/",auth,getnote);
+Router.get("/",auth,getnote);
 Router.put("/:id",auth,updatenote)
 Router.delete("/:id",auth,deletenote);
 Router.post("/",auth,searchnote)
