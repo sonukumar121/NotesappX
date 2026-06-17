@@ -15,6 +15,39 @@ export const addnote=async(req,res)=>{
 }
 
 
+export const searchnote = async (req, res) => {
+  try {
+    const { search } = req.query;
+    const query = {};
+
+    if (search) {
+      query.$or = [
+        {
+          title: {
+            $regex: search,
+            $options: "i",
+          },
+        },
+        {
+          description: {
+            $regex: search,
+            $options: "i",
+          },
+        },
+      ];
+    return res.json({ message: "note searching successfully", note: query});
+   
+      
+    }
+
+    res.status(400).json({ message: "search Data is required" });
+
+
+  } catch (err) {
+        res.status(500).json({ message: "Server error" });
+  }
+};
+
 
 export const getnote = async (req, res) => {
   try {
