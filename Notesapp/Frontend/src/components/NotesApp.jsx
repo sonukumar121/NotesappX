@@ -174,7 +174,7 @@ if (result.isConfirmed) {
 
     const data = await response.json();
 
-    setList(data.query);
+    setList(data.notes);
     snote("");
   };
 
