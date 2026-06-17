@@ -7,7 +7,8 @@ Router.post("/",auth,addnote);
 Router.get("/",auth,getnote);
 Router.put("/:id",auth,updatenote)
 Router.delete("/:id",auth,deletenote);
-Router.post("/",auth,searchnote)
+Router.get("/search",auth,searchnote)
+
 
 
 export default Router;
