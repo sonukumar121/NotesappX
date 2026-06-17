@@ -18,6 +18,7 @@ export const addnote=async(req,res)=>{
 export const searchnote = async (req, res) => {
   try {
     const { search } = req.query;
+      console.log(search)
     const query = {};
 
     if (search) {
