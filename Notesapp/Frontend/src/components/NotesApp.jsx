@@ -19,7 +19,7 @@ function NotesApp({ setIslogin }) {
   const [showForm, setshowForm] = useState(false);
   const [list, setList] = useState([]);
   const [ide, setide] = useState("");
-  const [search, setsearch] = useState("");
+   const [search, snote] = useState("");
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
   const [drop,setdrop]=useState(false);
   const [dark,setdark]=useState(true);
@@ -314,11 +314,9 @@ useEffect(() => {
               onChange={(e) => setDate(e.target.value)}
             />
 
-            <input
+             <input
               value={search}
-              onChange={(e) => {
-                searchnote(e);
-              }}
+              onChange={(e)=>snote(e.target.value)}
               type="text"
               placeholder="Search notes..."
             />
