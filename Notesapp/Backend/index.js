@@ -47,7 +47,7 @@ app.get(
   "/auth/google/callback",
   passport.authenticate("google", {
     session: false,
-    failureRedirect: "/",
+    failureRedirect: "https://notesappx.onrender.com",
   }),
   async (req, res) => {
     try {
