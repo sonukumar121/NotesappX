@@ -10,8 +10,7 @@ function Login({ setIslogin }) {
   const [name, setname] = useState("");
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
-    const [show,setShow]=useState(false);
-
+  const [show, setShow] = useState(false);
 
   // LOGIN
   const loginhandler = async (e) => {
@@ -26,7 +25,7 @@ function Login({ setIslogin }) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, password }),
-      }
+      },
     );
 
     const data = await response.json();
@@ -37,13 +36,10 @@ function Login({ setIslogin }) {
       toast.success("Login Successful 🚀");
       setIslogin(true);
       navigate("/");
-    }
-    else
-    {
-      const err=data.message;
+    } else {
+      const err = data.message;
       toast.error(err);
     }
-    
   };
 
   // SIGNUP
@@ -59,7 +55,7 @@ function Login({ setIslogin }) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ name, email, password }),
-      }
+      },
     );
 
     const data = await response.json();
@@ -67,15 +63,13 @@ function Login({ setIslogin }) {
     console.log(data.message);
 
     if (data.message === "signup successfully") {
-     toast.success("Signup Successful 🚀");
+      toast.success("Signup Successful 🚀");
       setlog(true);
       setname("");
       setemail("");
       setpassword("");
-    }
-     else
-    {
-      const err=data.message;
+    } else {
+      const err = data.message;
       toast.error(err);
     }
   };
@@ -84,9 +78,11 @@ function Login({ setIslogin }) {
     <div className="auth-container">
       <div className="auth-card">
         <h1>{log ? "Login" : "Sign Up"}</h1>
-         {/* <p>{data.message}</p> */}
-        <form onSubmit={log ? loginhandler : signuphandler} className="auth-form">
-          
+        {/* <p>{data.message}</p> */}
+        <form
+          onSubmit={log ? loginhandler : signuphandler}
+          className="auth-form"
+        >
           {!log && (
             <>
               {/* <span className="material-icons icon">person</span> */}
@@ -100,37 +96,30 @@ function Login({ setIslogin }) {
             </>
           )}
 
-        
-             {/* <span className="material-icons icon">email</span> */}
-              <input
+          {/* <span className="material-icons icon">email</span> */}
+          <input
             type="email"
             value={email}
             placeholder="Email Address"
             className="input-field"
             onChange={(e) => setemail(e.target.value)}
           />
-           
-         
 
-
-          
-        <div className="pwd-box">
-
+          <div className="pwd-box">
             <input
-            type={show ? "text" : "password"}
-             value={password}
-            placeholder="Password"
-            className="input-field"
-            onChange={(e) => setpassword(e.target.value)}
-          />
+              type={show ? "text" : "password"}
+              value={password}
+              placeholder="Password"
+              className="input-field"
+              onChange={(e) => setpassword(e.target.value)}
+            />
 
-          <span className="eye" onClick={() => setShow(!show)}>
-        <span className="material-icons">
-          {show ? "visibility" : "visibility_off"}
-        </span>
-      </span>
-        </div>
-        
+            <span className="eye" onClick={() => setShow(!show)}>
+              <span className="material-icons">
+                {show ? "visibility" : "visibility_off"}
+              </span>
+            </span>
+          </div>
 
           <button type="submit" className="auth-btn">
             {log ? "Login" : "Sign Up"}
@@ -149,6 +138,15 @@ function Login({ setIslogin }) {
               <span onClick={() => setlog(true)}>Login</span>
             </>
           )}
+           <p>------------------or----------------</p>
+          <button
+            onClick={() => {
+              window.location.href =
+                "https://notesappx2.onrender.com/auth/google";
+            }}
+          >
+            Login with Google
+          </button>
         </p>
       </div>
     </div>
