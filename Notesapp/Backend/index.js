@@ -47,14 +47,14 @@ app.get(
   "/auth/google/callback",
   passport.authenticate("google", {
     session: false,
-    failureRedirect: "https://notesappx.onrender.com",
+    failureRedirect: "/",
   }),
   async (req, res) => {
     try {
-      console.log("USER:", req.user); // debug
+      console.log("USER:", req.user);
 
       if (!req.user) {
-        return res.status(401).send("Google login failed");
+        return res.status(401).send("Google auth failed");
       }
 
       const token = jwt.sign(
@@ -69,11 +69,11 @@ app.get(
         sameSite: "none",
       });
 
-      res.redirect("https://notesappx.onrender.com");
+      return res.redirect("https://notesappx.onrender.com");
 
     } catch (err) {
       console.log("ERROR:", err);
-      res.status(500).send("Internal Server Error");
+      return res.status(500).send("Internal Server Error");
     }
   }
 );
