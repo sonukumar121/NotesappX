@@ -139,14 +139,29 @@ function Login({ setIslogin }) {
             </>
           )}
            <p>------------------or----------------</p>
-          <button
-            onClick={() => {
-              window.location.href =
-                "https://notesappx2.onrender.com/auth/google";
-            }}
-          >
-            Login with Google
-          </button>
+         <button
+  style="
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:10px 16px;
+    border:1px solid #ddd;
+    border-radius:6px;
+    background:white;
+    cursor:pointer;
+    font-weight:500;
+  "
+  onClick={() => {
+    window.location.href =
+      "https://notesappx2.onrender.com/auth/google";
+  }}
+>
+  <img
+    src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+    width="20"
+  />
+  Sign in with Google
+</button>
         </p>
       </div>
     </div>
