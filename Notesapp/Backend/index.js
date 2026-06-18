@@ -1,4 +1,7 @@
 import express from "express";
+import passport from "passport";
+import jwt from "jsonwebtoken";
+import authGoogle from "./auth/google.js"
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors";
@@ -27,10 +30,40 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-
+app.use(passport.initialize());
+// app.use(passport.session());
 // ---------------- ROUTES ----------------
 app.use("/api/note", NoteRoutes);
 app.use("/api/users", userRoutes);
+
+
+
+app.get('/auth/google',
+  passport.authenticate('google', { scope: ['profile'] }));
+ 
+
+  app.get(
+  "/auth/google/callback",
+  passport.authenticate("google", {
+    session: false,
+    failureRedirect: "/",
+  }),
+  async (req, res) => {
+    const token = jwt.sign(
+      { id: req.user._id },
+      process.env.JWT_SECRET,
+      { expiresIn: "7d" }
+    );
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+    });
+
+    res.redirect("https://notesappx.onrender.com");
+  }
+);
 
 app.get("/",(req,res)=>{
   return res.send("backend is running");
