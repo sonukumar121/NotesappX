@@ -43,41 +43,28 @@ app.get('/auth/google',
   passport.authenticate('google', { scope: ['profile'] }));
  
 
-app.get(
+  app.get(
   "/auth/google/callback",
   passport.authenticate("google", {
     session: false,
     failureRedirect: "/",
   }),
   async (req, res) => {
-    try {
-      console.log("USER:", req.user); // debug
+    const token = jwt.sign(
+      { id: req.user._id },
+      process.env.JWT_SECRET,
+      { expiresIn: "7d" }
+    );
 
-      if (!req.user) {
-        return res.status(401).send("Google login failed");
-      }
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+    });
 
-      const token = jwt.sign(
-        { id: req.user._id },
-        process.env.JWT_SECRET,
-        { expiresIn: "7d" }
-      );
-
-      res.cookie("token", token, {
-        httpOnly: true,
-        secure: true,
-        sameSite: "none",
-      });
-
-      res.redirect("https://notesappx.onrender.com");
-
-    } catch (err) {
-      console.log("ERROR:", err);
-      res.status(500).send("Internal Server Error");
-    }
+    res.redirect("https://notesappx.onrender.com");
   }
 );
-
 app.get("/",(req,res)=>{
   return res.send("backend is running");
 })
