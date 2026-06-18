@@ -1,18 +1,20 @@
+import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import dotenv from "dotenv";
- dotenv.config();
+import User from "../models/User.js";
 
- 
-passport.use(new GoogleStrategy({
-    clientID: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: process.env.CALLBACK_URL
-  }, async (accessToken, refreshToken, profile, done) => {
+dotenv.config();
+
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: process.env.CALLBACK_URL,
+    },
+    async (accessToken, refreshToken, profile, done) => {
       try {
-
-        let user = await User.findOne({
-          googleId: profile.id,
-        });
+        let user = await User.findOne({ googleId: profile.id });
 
         if (!user) {
           user = await User.create({
@@ -22,24 +24,19 @@ passport.use(new GoogleStrategy({
         }
 
         return done(null, user);
-
       } catch (error) {
         return done(error, null);
       }
     }
   )
-)
+);
 
-
-
-
-
-passport.serializeUser(function(user, done) {
-  done(null, user);  //session information save 
+// session (agar use kar raha hai)
+passport.serializeUser((user, done) => {
+  done(null, user.id);
 });
 
-passport.deserializeUser(function(id, done) {
-  User.findById(id, function (err, user) {
-    done(null, user);  ///session information delete
-  });
+passport.deserializeUser(async (id, done) => {
+  const user = await User.findById(id);
+  done(null, user);
 });
