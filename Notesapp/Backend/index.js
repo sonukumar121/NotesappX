@@ -1,8 +1,9 @@
 import express from "express";
+import dotenv from "dotenv";
+dotenv.config();
 import passport from "passport";
 import jwt from "jsonwebtoken";
 import "./auth/google.js";
-import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import connectDB from "./config/Db.js";
@@ -10,7 +11,7 @@ import NoteRoutes from "./route/NoteRoutes.js";
 import userRoutes from "./route/userRoutes.js";
 import dns from "dns";
 dns.setServers(["1.1.1.1" , "8.8.8.8"])
-dotenv.config();
+
 
 const app = express();
 
