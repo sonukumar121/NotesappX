@@ -139,14 +139,14 @@ function Login({ setIslogin }) {
             </>
           )}
            <p>------------------or----------------</p>
-     <button
+     {/* <button
             onClick={() => {
               window.location.href =
                 "https://notesappx2.onrender.com/auth/google";
             }}
           >
             Login with Google
-          </button>
+          </button> */}
         </p>
       </div>
     </div>
