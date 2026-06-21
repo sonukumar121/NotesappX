@@ -263,9 +263,12 @@ if (result.isConfirmed) {
   }
 
 
-window.flatpickr("#datePicker", {
-  dateFormat: "d-m-Y",
-});
+useEffect(() => {
+  window.flatpickr("#datePicker", {
+    dateFormat: "d-m-Y",
+    disableMobile: true,
+  });
+}, []);
 
   return (
     <>
