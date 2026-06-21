@@ -262,6 +262,13 @@ if (result.isConfirmed) {
     setdrop(!drop);
   }
 
+
+  useEffect(() => {
+  window.flatpickr("#datePicker", {
+    dateFormat: "Y-m-d",
+  });
+}, []);
+
   return (
     <>
       <div className="app">
@@ -349,13 +356,9 @@ if (result.isConfirmed) {
             />  */}
 
 
-            <input
-  type="text"
+             <input
+  id="datePicker"
   placeholder="DD-MM-YYYY"
-  onFocus={(e) => (e.target.type = "date")}
-  onBlur={(e) => {
-    if (!e.target.value) e.target.type = "text";
-  }}
   onChange={searchdate}
 />
 
