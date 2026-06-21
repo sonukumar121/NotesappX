@@ -88,19 +88,19 @@ export const Signup = async (req, res) => {
     // 🔥 2. Hash password
     const hpassword = await bcrypt.hash(password, 10);
 
-    // 🔥 3. Create user
-    // await user.create({
-    //   name,
-    //   email,
-    //   password: hpassword
-    // });
+    🔥 3. Create user
+    await user.create({
+      name,
+      email,
+      password: hpassword
+    });
 
-   await user.create({
-  googleId: profile.id,
-  name: profile.displayName,
-  email: profile.emails?.[0]?.value,
-  password: null,
-});
+//    await user.create({
+//   googleId: profile.id,
+//   name: profile.displayName,
+//   email: profile.emails?.[0]?.value,
+//   password: null,
+// });
 
     return res.status(201).json({
       message: "Signup successful"
