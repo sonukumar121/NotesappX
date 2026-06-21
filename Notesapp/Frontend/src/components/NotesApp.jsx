@@ -344,7 +344,7 @@ if (result.isConfirmed) {
             {/* dateeeeeeeeeeeeee settting */}
             <input
               type="date"
-              value={date}
+             
               onChange={(e) => searchdate(e)}
             />
 
