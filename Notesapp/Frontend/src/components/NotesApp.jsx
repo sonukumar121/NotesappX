@@ -360,7 +360,7 @@ useEffect(() => {
              <input
   id="datePicker"
   placeholder="DD-MM-YYYY"
-  onChange={searchdate}
+  onChange={(e)=>searchdate(e)}
 />
 
           
