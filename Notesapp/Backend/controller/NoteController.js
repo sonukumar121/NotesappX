@@ -89,6 +89,36 @@ export const searchnote = async (req, res) => {
 
 
 
+export const searchdate=async(req,res)=>{
+   try {
+    const { date } = req.query;
+
+    const start = new Date(date);
+    const end = new Date(date);
+
+    end.setDate(end.getDate() + 1);
+
+    const expenses = await expense.find({
+      userid: req.user.id,
+      date: {
+        $gte: start,
+        $lt: end,
+      },
+    });
+
+    res.json({ expenses });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Server error" });
+  }
+}
+
+
+
+
+
+
+
 export const getnote = async (req, res) => {
   try {
     const { date } = req.query;
