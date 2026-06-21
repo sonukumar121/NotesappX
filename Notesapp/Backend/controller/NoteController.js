@@ -15,6 +15,34 @@ export const addnote=async(req,res)=>{
 }
 
 
+
+
+export const getdata=async(req,res)=>{
+   try {
+    const { datee } = req.query;
+
+    const start = new Date(datee);
+    const end = new Date(datee);
+
+    end.setDate(end.getDate() + 1);
+
+    const expenses = await expense.find({
+      userid: req.user.id,
+      date: {
+        $gte: start,
+        $lt: end,
+      },
+    });
+
+    res.json({ expenses });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Server error" });
+  }
+}
+
+
+
 export const searchnote = async (req, res) => {
 //   try {
       
@@ -119,34 +147,34 @@ export const searchdate=async(req,res)=>{
 
 
 
-export const getnote = async (req, res) => {
-  try {
-    const { date } = req.query;
+// export const getnote = async (req, res) => {
+//   try {
+//     const { date } = req.query;
 
-    if (!date) {
-      return res.status(400).json({ message: "Date is required" });
-    }
+//     if (!date) {
+//       return res.status(400).json({ message: "Date is required" });
+//     }
 
-    const start = new Date(date);
-    start.setHours(0, 0, 0, 0);
+//     const start = new Date(date);
+//     start.setHours(0, 0, 0, 0);
 
-    const end = new Date(date);
-    end.setHours(23, 59, 59, 999);
+//     const end = new Date(date);
+//     end.setHours(23, 59, 59, 999);
 
-    const notes = await Note.find({
-      userid: req.user.id,
-      createdAt: {
-        $gte: start,
-        $lte: end,
-      },
-    });
+//     const notes = await Note.find({
+//       userid: req.user.id,
+//       createdAt: {
+//         $gte: start,
+//         $lte: end,
+//       },
+//     });
 
-    res.json({ notes });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ message: "Server error" });
-  }
-};
+//     res.json({ notes });
+//   } catch (err) {
+//     console.log(err);
+//     res.status(500).json({ message: "Server error" });
+//   }
+// };
 
 
 
