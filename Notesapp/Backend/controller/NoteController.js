@@ -98,7 +98,7 @@ export const searchdate=async(req,res)=>{
 
     end.setDate(end.getDate() + 1);
 
-    const expenses = await expense.find({
+    const notes = await expense.find({
       userid: req.user.id,
       date: {
         $gte: start,
@@ -106,7 +106,7 @@ export const searchdate=async(req,res)=>{
       },
     });
 
-    res.json({ expenses });
+    res.json({ notes });
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Server error" });
