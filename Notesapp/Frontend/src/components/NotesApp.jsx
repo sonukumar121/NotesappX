@@ -342,11 +342,34 @@ if (result.isConfirmed) {
           <div className="topbar">
             <h2 style={dark ? {} : {color:"black"}}>My Notes</h2>
             {/* dateeeeeeeeeeeeee settting */}
-            <input
+            {/* <input
               type="date"
              
               onChange={(e) => searchdate(e)}
-            />
+            /> */}
+
+          
+           <DatePicker
+  onChange={(date) =>
+    searchdate({
+      target: {
+        value: date,
+      },
+    })
+  }
+  placeholderText="DD-MM-YYYY"
+  dateFormat="dd-MM-yyyy"
+/>
+
+
+
+
+
+
+
+
+
+            
 
              <input
               
@@ -367,7 +390,7 @@ if (result.isConfirmed) {
 
                 <div className="card-footer">
                   <span>
-                    📅 {new Date(item.createdAt).toISOString().split("T")[0]}
+                     {new Date(item.createdAt).toISOString().split("T")[0]}
                   </span>
 
                   <div>
