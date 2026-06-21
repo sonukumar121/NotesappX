@@ -349,7 +349,7 @@ if (result.isConfirmed) {
             />
 
              <input
-              {/* value={search} */}
+              
               onChange={(e)=>searchnote(e.target.value)}
               type="text"
               placeholder="Search notes..."
