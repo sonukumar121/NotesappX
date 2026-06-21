@@ -263,11 +263,9 @@ if (result.isConfirmed) {
   }
 
 
-  useEffect(() => {
-  window.flatpickr("#datePicker", {
-    dateFormat: "Y-m-d",
-  });
-}, []);
+window.flatpickr("#datePicker", {
+  dateFormat: "d-m-Y",
+});
 
   return (
     <>
