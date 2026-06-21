@@ -167,7 +167,7 @@ if (result.isConfirmed) {
     // const value = e.target.value;
 
     // setsearch(value);
-     const search=e.target.value;
+     const search = e.target.value;
      
      
     const response = await fetch(
