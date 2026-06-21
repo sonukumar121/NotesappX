@@ -264,12 +264,7 @@ if (result.isConfirmed) {
   }
 
 
-useEffect(() => {
-  window.flatpickr("#datePicker", {
-    dateFormat: "d-m-Y",
-    disableMobile: true,
-  });
-}, []);
+
 
   return (
     <>
@@ -351,18 +346,13 @@ useEffect(() => {
           <div className="topbar">
             <h2 style={dark ? {} : {color:"black"}}>My Notes</h2>
             {/* dateeeeeeeeeeeeee settting */}
-             {/* <input
+              <input
               type="date"
         
               onChange={(e) => searchdate(e)}
-            />  */}
+            /> 
 
 
-             <input
-  id="datePicker"
-  placeholder="DD-MM-YYYY"
-  onChange={(e)=>searchdate(e)}
-/>
 
           
  
