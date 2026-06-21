@@ -3,6 +3,8 @@ import "../App.css";
 // import { FaEdit, FaTrash, MdDateRange, FaCalendarAlt } from "react-icons/fa";
 // import Signup from "./Signup";
 // import { useNavigate } from "react-router-dom";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // import { toast } from "react-toastify";
@@ -349,7 +351,7 @@ if (result.isConfirmed) {
             /> */}
 
           
-           <DatePicker
+     <DatePicker
   onChange={(date) =>
     searchdate({
       target: {
