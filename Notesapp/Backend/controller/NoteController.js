@@ -16,43 +16,73 @@ export const addnote=async(req,res)=>{
 
 
 export const searchnote = async (req, res) => {
-  try {
+  // try {
       
-    const { search } = req.query;
-      if(search=="") return;
-      console.log(search)
-    const query = {};
+  //   const { search } = req.query;
+  //     if(search=="") return;
+  //     console.log(search)
+  //   const query = {};
 
-    if (search) {
-      query.$or = [
-        {
-          title: {
-            $regex: search,
-            $options: "i",
-          },
-        },
-        {
-          description: {
-            $regex: search,
-            $options: "i",
-          },
-        },
-      ];
-           const notes = await Note.find(query);
-         console.log(notes);
-     return res.json({notes});
+  //   if (search) {
+  //     query.$or = [
+  //       {
+  //         title: {
+  //           $regex: search,
+  //           $options: "i",
+  //         },
+  //       },
+  //       {
+  //         description: {
+  //           $regex: search,
+  //           $options: "i",
+  //         },
+  //       },
+  //     ];
+  //          const notes = await Note.find(query);
+  //        console.log(notes);
+  //    return res.json({notes});
     
    
       
-    }
+  //   }
 
-    res.status(400).json({ message: "search Data is required" });
+  //   res.status(400).json({ message: "search Data is required" });
 
 
+  // } catch (err) {
+
+
+
+
+
+    try {
+    const { search } = req.query;
+
+    const notes = await expense.find({
+      userid: req.user.id,
+      $or: [
+        {
+          note: {
+            $regex: search,
+            $options: "i",
+          },
+        },
+        {
+          category: {
+            $regex: search,
+            $options: "i",
+          },
+        },
+      ],
+    });
+
+    return res.json({ notes });
   } catch (err) {
-        res.status(500).json({ message: "Server error" });
+    console.log(err);
+    res.status(500).json({ message: "Server error" });
   }
-};
+}
+
 
 
 export const getnote = async (req, res) => {
