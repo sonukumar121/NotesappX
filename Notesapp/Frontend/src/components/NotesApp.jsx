@@ -38,7 +38,7 @@ function NotesApp({ setIslogin }) {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const getform = async () => {
+  const getdata = async () => {
     const response = await fetch(
      `https://notesappx2.onrender.com/api/note?date=${date}`,
       {
@@ -55,6 +55,30 @@ function NotesApp({ setIslogin }) {
     setList(data.notes);
   };
 
+
+
+
+    const getdata = async () => {
+    const response = await fetch(
+     "https://notesappx2.onrender.com/api/note",
+      {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        // body: JSON.stringify({ date: date }),
+      },
+    );
+    const data = await response.json();
+    console.log(data);
+    setList(data.notes);
+  };
+
+
+
+
+  
   const addNote = async (e, id) => {
     e.preventDefault();
     setshowForm(false);
@@ -80,7 +104,7 @@ function NotesApp({ setIslogin }) {
       const data = await response.json();
 
       console.log("edit data=", data);
-      await getform();
+      await getdata();
       setEdit(false);
     } else {
       const response = await fetch(
@@ -98,7 +122,7 @@ function NotesApp({ setIslogin }) {
       const data = await response.json();
 
       console.log(data);
-      await getform();
+      await getdata();
       // setList(prev=>[...prev,form]);
     }
 
@@ -149,7 +173,7 @@ if (result.isConfirmed) {
     const data = await response.json();
 
     console.log(data);
-    await getform();
+    await getdata();
 }
     
   };
@@ -179,15 +203,19 @@ if (result.isConfirmed) {
   };
 
   
-useEffect(() => {
-    searchnote();
-  }, [search]);
+// useEffect(() => {
+//     searchnote();
+//   }, [search]);
 
 
 
-  useEffect(() => {
-    getform();
-  }, [date]);
+//   useEffect(() => {
+//     getdata();
+//   }, [date]);
+
+    useEffect(() => {
+    getdata();
+  }, []);
 
   const logouthandler = async () => {
     const response = await fetch(
