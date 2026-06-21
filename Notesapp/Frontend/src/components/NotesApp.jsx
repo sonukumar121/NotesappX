@@ -192,6 +192,7 @@ if (result.isConfirmed) {
 
     const searchdate = async (e) => {
       const date=e.target.value;
+      console.log("date= ",date);
     const response = await fetch(
      `https://notesappx2.onrender.com/api/note/date?date=${date}`,
       {
