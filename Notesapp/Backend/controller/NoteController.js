@@ -31,48 +31,6 @@ export const getnote=async(req,res)=>{
 
 
 export const searchnote = async (req, res) => {
-//   try {
-      
-//     const { search } = req.query;
-//       if(search=="") return;
-//       console.log(search)
-//     const query = {};
-
-//     if (search) {
-//       query.$or = [
-//         {
-//           title: {
-//             $regex: search,
-//             $options: "i",
-//           },
-//         },
-//         {
-//           description: {
-//             $regex: search,
-//             $options: "i",
-//           },
-//         },
-//       ];
-//            const notes = await Note.find(query);
-//          console.log(notes);
-//      return res.json({notes});
-    
-   
-      
-//     }
-
-//     res.status(400).json({ message: "search Data is required" });
-
-
-//   } catch (err) {
-//     console.log(err);
-//     res.status(500).json({ message: "Server error" });
-//   }
-// }
-
-
-
-
 
     try {
     const { search } = req.query;
@@ -115,10 +73,10 @@ export const searchdate=async(req,res)=>{
 
     const notes = await Note.find({
       userid: req.user.id,
-      date: {
-        $gte: start,
-        $lt: end,
-      },
+      createdAt: {
+    $gte: start,
+    $lt: end,
+  },
     });
 
     res.json({ notes });
