@@ -345,12 +345,12 @@ if (result.isConfirmed) {
             <input
               type="date"
               value={date}
-              onChange={(e) => searchdate(e.target.value)}
+              onChange={(e) => searchdate(e)}
             />
 
              <input
               
-              onChange={(e)=>searchnote(e.target.value)}
+              onChange={(e)=>searchnote(e)}
               type="text"
               placeholder="Search notes..."
             />
