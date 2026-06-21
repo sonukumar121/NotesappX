@@ -19,7 +19,7 @@ export const addnote=async(req,res)=>{
 
 export const getnote=async(req,res)=>{
    try {
-     const notes=await note.find({userid:req.user.id});
+     const notes=await Note.find({userid:req.user.id});
 
     return res.json({ notes });
   } catch (err) {
@@ -77,7 +77,7 @@ export const searchnote = async (req, res) => {
     try {
     const { search } = req.query;
 
-    const notes = await expense.find({
+    const notes = await Note.find({
       userid: req.user.id,
       $or: [
         {
@@ -113,7 +113,7 @@ export const searchdate=async(req,res)=>{
 
     end.setDate(end.getDate() + 1);
 
-    const notes = await expense.find({
+    const notes = await Note.find({
       userid: req.user.id,
       date: {
         $gte: start,
