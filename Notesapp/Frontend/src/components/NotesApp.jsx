@@ -19,7 +19,7 @@ function NotesApp({ setIslogin }) {
   const [showForm, setshowForm] = useState(false);
   const [list, setList] = useState([]);
   const [ide, setide] = useState("");
-   const [search, snote] = useState("");
+   // const [search, snote] = useState("");
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
   const [drop,setdrop]=useState(false);
   const [dark,setdark]=useState(true);
@@ -38,22 +38,7 @@ function NotesApp({ setIslogin }) {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const getdata = async () => {
-    const response = await fetch(
-     `https://notesappx2.onrender.com/api/note?date=${date}`,
-      {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        // body: JSON.stringify({ date: date }),
-      },
-    );
-    const data = await response.json();
-    console.log(data);
-    setList(data.notes);
-  };
+
 
 
 
@@ -178,10 +163,12 @@ if (result.isConfirmed) {
     
   };
 
-   const searchnote = async () => {
+   const searchnote = async (e) => {
     // const value = e.target.value;
 
     // setsearch(value);
+     const search=e.target.value;
+     
      
     const response = await fetch(
       `https://notesappx2.onrender.com/api/note/search?search=${search}`,
@@ -200,6 +187,25 @@ if (result.isConfirmed) {
     console.log(data.notes);
     setList(data.notes);
     
+  };
+
+
+    const searchdate = async (e) => {
+      const date=e.target.value
+    const response = await fetch(
+     `https://notesappx2.onrender.com/api/note/date?date=${date}`,
+      {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        // body: JSON.stringify({ date: date }),
+      },
+    );
+    const data = await response.json();
+    console.log(data);
+    setList(data.notes);
   };
 
   
@@ -339,12 +345,12 @@ if (result.isConfirmed) {
             <input
               type="date"
               value={date}
-              onChange={(e) => setDate(e.target.value)}
+              onChange={(e) => searchdate(e.target.value)}
             />
 
              <input
               value={search}
-              onChange={(e)=>snote(e.target.value)}
+              onChange={(e)=>searchnote(e.target.value)}
               type="text"
               placeholder="Search notes..."
             />
