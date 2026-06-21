@@ -62,7 +62,7 @@ function Login({ setIslogin }) {
 
     console.log(data.message);
 
-    if (data.message === "signup successfully") {
+    if (data.message === "Signup successful") {
       toast.success("Signup Successful 🚀");
       setlog(true);
       setname("");
