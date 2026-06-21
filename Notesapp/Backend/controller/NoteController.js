@@ -17,24 +17,11 @@ export const addnote=async(req,res)=>{
 
 
 
-export const getdata=async(req,res)=>{
+export const getnote=async(req,res)=>{
    try {
-    const { datee } = req.query;
+     const notes=await note.find({userid:req.user.id});
 
-    const start = new Date(datee);
-    const end = new Date(datee);
-
-    end.setDate(end.getDate() + 1);
-
-    const expenses = await expense.find({
-      userid: req.user.id,
-      date: {
-        $gte: start,
-        $lt: end,
-      },
-    });
-
-    res.json({ expenses });
+    return res.json({ notes });
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Server error" });
