@@ -81,13 +81,13 @@ export const searchnote = async (req, res) => {
       userid: req.user.id,
       $or: [
         {
-          note: {
+          title: {
             $regex: search,
             $options: "i",
           },
         },
         {
-          category: {
+          description: {
             $regex: search,
             $options: "i",
           },
