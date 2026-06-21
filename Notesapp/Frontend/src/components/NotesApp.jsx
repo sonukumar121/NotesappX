@@ -342,11 +342,22 @@ if (result.isConfirmed) {
           <div className="topbar">
             <h2 style={dark ? {} : {color:"black"}}>My Notes</h2>
             {/* dateeeeeeeeeeeeee settting */}
-             <input
+             {/* <input
               type="date"
         
               onChange={(e) => searchdate(e)}
-            /> 
+            />  */}
+
+
+            <input
+  type="text"
+  placeholder="DD-MM-YYYY"
+  onFocus={(e) => (e.target.type = "date")}
+  onBlur={(e) => {
+    if (!e.target.value) e.target.type = "text";
+  }}
+  onChange={searchdate}
+/>
 
           
  
