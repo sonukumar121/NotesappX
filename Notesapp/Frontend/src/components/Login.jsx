@@ -139,24 +139,17 @@ function Login({ setIslogin }) {
               <span onClick={() => setlog(true)}>Login</span>
             </>
           )}
-           <p>------------------or----------------</p>
-<<<<<<< HEAD
-     {/* <button
-=======
-     <button className="google-btn"
->>>>>>> 0dc9379 (google auth updatede)
+
+
+          <button className="google-btn"
             onClick={() => {
-              window.location.href = "https://expense-trackerb.onrender.com/auth/google";
+              window.location.href = "https://notesappx2.onrender.com/auth/google";
             }}
           >
-<<<<<<< HEAD
-            Login with Google
-          </button> */}
-=======
             <FcGoogle size={20} />
             Continue with Google
           </button>
->>>>>>> 0dc9379 (google auth updatede)
+          
         </p>
       </div>
     </div>
