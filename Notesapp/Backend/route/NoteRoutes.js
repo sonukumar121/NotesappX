@@ -7,9 +7,14 @@ Router.post("/",auth,addnote);
 Router.get("/",auth,getnote);
 Router.put("/:id",auth,updatenote)
 Router.delete("/:id",auth,deletenote);
+<<<<<<< HEAD
+=======
 
 Router.get("/search",auth,searchnote)
 Router.get("/date",auth,searchdate)
+>>>>>>> 0dc9379 (google auth updatede)
 
+Router.get("/search",auth,searchnote)
+Router.get("/date",auth,searchdate)
 
 export default Router;

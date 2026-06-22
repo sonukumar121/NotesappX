@@ -149,7 +149,3 @@ export const updatenote=async(req,res)=>{
         console.log(err);
     }
 }
-
-
-
-

@@ -4,6 +4,10 @@ dotenv.config();
 import passport from "passport";
 import jwt from "jsonwebtoken";
 import "./auth/google.js";
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0dc9379 (google auth updatede)
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import connectDB from "./config/Db.js";
@@ -39,8 +43,10 @@ app.use("/api/users", userRoutes);
 
 
 
+
+
 app.get('/auth/google',
-  passport.authenticate('google', { scope: ['profile'] }));
+  passport.authenticate('google', { scope: ["profile", "email"],}));
  
 
 app.get(
@@ -52,6 +58,7 @@ app.get(
   async (req, res) => {
     try {
       console.log("USER:", req.user);
+<<<<<<< HEAD
 
       if (!req.user) {
         return res.status(401).send("Google auth failed");
@@ -70,6 +77,26 @@ app.get(
       });
 
       return res.redirect("https://notesappx.onrender.com");
+=======
+
+      if (!req.user) {
+        return res.status(401).send("Google auth failed");
+      }
+
+      const token = jwt.sign(
+        { id: req.user._id },
+        process.env.JWT_SECRET,
+        { expiresIn: "7d" }
+      );
+
+    res.cookie("token", token, {
+  httpOnly: true,
+  secure: true,
+  sameSite: "none",
+});
+
+      return res.redirect("https://expense-tracker-zwsb.onrender.com");
+>>>>>>> 0dc9379 (google auth updatede)
 
     } catch (err) {
       console.log("ERROR:", err);
@@ -77,7 +104,3 @@ app.get(
     }
   }
 );
-
-app.get("/",(req,res)=>{
-  return res.send("backend is running");
-})
