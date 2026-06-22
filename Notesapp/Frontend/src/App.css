@@ -432,3 +432,40 @@ body {
   display: flex;
   align-items: center;
 }
+
+
+
+.google-btn {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #dadce0;
+  border-radius: 12px;
+  background: #fff;
+  color: #3c4043;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.google-btn:hover {
+  background: #f8f9fa;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  transform: translateY(-1px);
+}
+
+.google-btn:active {
+  transform: translateY(0);
+}
+
+.google-btn img {
+  width: 20px;
+  height: 20px;
+}
