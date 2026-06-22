@@ -2,7 +2,7 @@ import "../App.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { FaBeer } from "react-icons/fa";
+// import { FaBeer } from "react-icons/fa";
 function Login({ setIslogin }) {
   const navigate = useNavigate();
 
@@ -141,14 +141,21 @@ function Login({ setIslogin }) {
           )}
 
 
-          <button className="google-btn"
-            onClick={() => {
-              window.location.href = "https://notesappx2.onrender.com/auth/google";
-            }}
-          >
-            <FcGoogle size={20} />
-            Continue with Google
-          </button>
+       <button
+  className="google-btn"
+  onClick={() => {
+    window.location.href = "https://notesappx2.onrender.com/auth/google";
+  }}
+>
+  <img
+    src="https://www.google.com/favicon.ico"
+    alt="Google"
+    width="20"
+    height="20"
+    style={{ marginRight: "8px", verticalAlign: "middle" }}
+  />
+  Continue with Google
+</button>
           
         </p>
       </div>
