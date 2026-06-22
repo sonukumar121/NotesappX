@@ -141,7 +141,7 @@ function Login({ setIslogin }) {
           )}
 
 
-       <button
+   <button
   className="google-btn"
   onClick={() => {
     window.location.href = "https://notesappx2.onrender.com/auth/google";
@@ -150,9 +150,6 @@ function Login({ setIslogin }) {
   <img
     src="https://www.google.com/favicon.ico"
     alt="Google"
-    width="20"
-    height="20"
-    style={{ marginRight: "8px", verticalAlign: "middle" }}
   />
   Continue with Google
 </button>
