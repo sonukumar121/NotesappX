@@ -78,23 +78,7 @@ app.get(
       return res.redirect("https://notesappx.onrender.com");
 // =======
 
-      if (!req.user) {
-        return res.status(401).send("Google auth failed");
-      }
 
-      const token = jwt.sign(
-        { id: req.user._id },
-        process.env.JWT_SECRET,
-        { expiresIn: "7d" }
-      );
-
-    res.cookie("token", token, {
-  httpOnly: true,
-  secure: true,
-  sameSite: "none",
-});
-
-      return res.redirect("https://expense-tracker-zwsb.onrender.com");
 // >>>>>>> 0dc9379 (google auth updatede)
 
     } catch (err) {
